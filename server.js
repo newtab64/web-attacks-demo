@@ -13,9 +13,10 @@ const secure = process.env.SECURITY_MODE !== 'vulnerable';
 
 // security headers
 if (secure) {
-  // secure: set defense-in-depth HTTP security headers
+  // secure: set defense-in-depth HTTP security headers & disable express fingerprinting
+  app.disable('x-powered-by');
   app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'");
+    res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "DENY");
     next();
@@ -137,6 +138,11 @@ app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const ip = req.ip || '127.0.0.1';
 
+  // input validation
+  if (!username || typeof password !== 'string') {
+    return res.render('login', { error: 'Invalid username or password' });
+  }
+
   // rate limiting in secure mode
   if (secure) {
     const attempts = loginAttempts.get(ip) || { count: 0, resetAt: Date.now() + 300000 };
@@ -236,6 +242,7 @@ app.post('/profile/email', requireAuth, (req, res) => {
   }
 
   db.prepare('UPDATE users SET email = ? WHERE id = ?').run(email, req.session.userId);
+  if (res.locals.user) res.locals.user.email = email;
   res.render('profile', { message: 'Email address updated successfully!', error: null });
 });
 
