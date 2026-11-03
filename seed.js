@@ -1,8 +1,13 @@
 const bcrypt = require('bcryptjs');
 const db = require('./db');
 
-// clear existing tables
-db.exec('DELETE FROM comments; DELETE FROM posts; DELETE FROM users;');
+// clear existing tables & reset autoincrement
+db.exec(`
+  DELETE FROM comments;
+  DELETE FROM posts;
+  DELETE FROM users;
+  DELETE FROM sqlite_sequence WHERE name IN ('comments', 'posts', 'users');
+`);
 
 // seed users (storing both bcrypt hash and plaintext)
 const insertUser = db.prepare(`

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "seed": "node seed.js",
-    "test": "node tests/test_db_seed.js"
+    "test": "node tests/test_db_seed.js && node tests/test_views.js && node tests/test_server_routes.js && node tests/test_attacker.js",
+    "test:attacks": "node tests/verify_attacks.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
