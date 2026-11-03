@@ -1,0 +1,31 @@
+<%- include('layout/header') %>
+
+<div class="form-card">
+  <h1 style="font-size: 1.6rem; margin-bottom: 20px; text-align: center;">Register Account</h1>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+
+  <form action="/register" method="POST">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autocomplete="new-password">
+    </div>
+    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+  </form>
+
+  <p style="text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--text-muted);">
+    Already have an account? <a href="/login" style="color: var(--primary);">Login</a>
+  </p>
+</div>
+
+<%- include('layout/footer') %>

@@ -1,0 +1,23 @@
+<%- include('layout/header') %>
+
+<section>
+  <h1 style="margin-bottom: 12px; font-size: 1.6rem;">
+    Search Results for: <% if (!secure) { %><%- query %><% } else { %><%= query %><% } %>
+  </h1>
+
+  <p style="color: var(--text-muted); margin-bottom: 24px;">Found <%= results.length %> result(s)</p>
+
+  <% if (results.length === 0) { %>
+    <p>No posts matching your search query.</p>
+  <% } else { %>
+    <% results.forEach(post => { %>
+      <article class="post-card">
+        <h2 class="post-title"><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
+        <div class="post-meta">Posted on <%= post.created_at %></div>
+        <p class="post-content"><%= post.content.substring(0, 160) %>...</p>
+      </article>
+    <% }); %>
+  <% } %>
+</section>
+
+<%- include('layout/footer') %>
