@@ -1,0 +1,5 @@
+node_modules/
+blog.db
+blog.db-shm
+blog.db-wal
+.superpowers/
