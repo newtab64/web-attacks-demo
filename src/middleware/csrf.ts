@@ -22,13 +22,11 @@ export function createCsrfMiddleware(isSecure: boolean) {
       return;
     }
 
-    // secure: validate token on state-changing methods
+    // secure: validate token on state-changing methods for sensitive actions (profile email update, logout)
     const method = req.method.toUpperCase();
     if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(method)) {
-      // Allow login and register forms without CSRF if needed, but per plan:
-      // CSRF demo specifically targets POST /profile/email and POST /logout
-      const isExempt = req.path === '/login' || req.path === '/register';
-      if (!isExempt) {
+      const requiresCsrf = req.path.startsWith('/profile') || req.path === '/logout';
+      if (requiresCsrf) {
         const bodyToken = (req.body as Record<string, unknown> | undefined)?._csrf;
         const headerToken = req.headers['x-csrf-token'];
         const sessionToken = req.session?.csrfToken;

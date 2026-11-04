@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import { AuthService } from './service.js';
 import { loginSchema, registerSchema } from './schemas.js';
-import { recordFailedLogin, resetLoginAttempts } from '../../middleware/rate-limit.js';
+import {
+  recordFailedLogin,
+  resetLoginAttempts,
+  createRateLimitMiddleware,
+} from '../../middleware/rate-limit.js';
 import { i18n } from '../../i18n/vi.js';
 
 export function createAuthRouter(mode: 'vulnerable' | 'secure'): Router {
@@ -17,7 +21,7 @@ export function createAuthRouter(mode: 'vulnerable' | 'secure'): Router {
     res.render('pages/login', { flash: res.locals.flash });
   });
 
-  router.post('/login', (req, res) => {
+  router.post('/login', createRateLimitMiddleware(isSecure), (req, res) => {
     const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
     const parsed = loginSchema.safeParse(req.body);
 
