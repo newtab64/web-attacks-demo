@@ -1,7 +1,9 @@
 node_modules/
+dist/
 blog.db
 blog.db-shm
 blog.db-wal
 data/
 .superpowers/
 docs/superpowers/
+*.tsbuildinfo
