@@ -1,0 +1,43 @@
+<article class="wrap narrow post">
+  <p class="crumb"><a href="/"><%= i18n.nav.home %></a> / <%= post.primary_tag || 'Campus' %></p>
+  <h1><%= post.title %></h1>
+  <div class="who">
+    <span class="av"><%= post.author_name ? post.author_name.substring(0, 2).toUpperCase() : 'CD' %></span>
+    <strong><%= post.author_name %></strong>
+    <span><%= post.formatted_date || post.created_at %></span>
+    <span><%= post.reading_time_min %> <%= i18n.sidebar.minutesRead %></span>
+  </div>
+
+  <div class="prose">
+    <%- post.formatted_content || post.content %>
+  </div>
+
+  <section class="comments" aria-labelledby="c-title">
+    <h2 id="c-title"><%= i18n.post.commentsTitle %> (<%= comments.length %>)</h2>
+
+    <% if (comments.length === 0) { %>
+      <p class="hint"><%= i18n.emptyState.noPosts %></p>
+    <% } else { %>
+      <% comments.forEach(comment => { %>
+        <%- include('../partials/comment', { comment, isSecure }) %>
+      <% }); %>
+    <% } %>
+
+    <form class="panel mt" action="/posts/<%= post.id %>/comments" method="POST">
+      <h2 class="sm"><%= i18n.post.leaveComment %></h2>
+      <%- include('../partials/flash') %>
+
+      <div class="field">
+        <label for="author_name"><%= i18n.post.authorName %></label>
+        <input id="author_name" name="author_name" value="<%= typeof user !== 'undefined' && user ? user.username : '' %>" required>
+      </div>
+
+      <div class="field">
+        <label for="content"><%= i18n.post.commentContent %></label>
+        <textarea id="content" name="content" rows="4" required></textarea>
+      </div>
+
+      <button class="btn" type="submit"><%= i18n.post.submitComment %></button>
+    </form>
+  </section>
+</article>

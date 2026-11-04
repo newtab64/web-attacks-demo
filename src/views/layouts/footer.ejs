@@ -1,0 +1,11 @@
+<footer class="foot-site">
+  <div class="wrap">
+    <span><%= i18n.footer.credit %></span>
+    <span>
+      <a href="/"><%= i18n.footer.home %></a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/profile"><%= i18n.footer.profile %></a>
+      <% } %>
+    </span>
+  </div>
+</footer>

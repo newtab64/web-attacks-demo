@@ -1,0 +1,46 @@
+<div class="wrap hero">
+  <h1><%= i18n.brand.slogan %></h1>
+  <p><%= i18n.brand.subSlogan %></p>
+</div>
+
+<div class="wrap layout">
+  <div class="feed">
+    <%- include('../partials/flash') %>
+
+    <% if (posts.length === 0) { %>
+      <%- include('../partials/empty-state', {
+        title: activeTag ? i18n.emptyState.noTagPosts : i18n.emptyState.noPosts,
+        desc: activeTag ? i18n.search.emptyDesc : '',
+        showBack: !!activeTag
+      }) %>
+    <% } else { %>
+      <% posts.forEach(post => { %>
+        <%- include('../partials/post-item', { post }) %>
+      <% }); %>
+
+      <nav class="pager" aria-label="Phân trang">
+        <a class="btn ghost" href="/"><%= i18n.pager.newer %></a>
+        <a class="btn ghost" href="/"><%= i18n.pager.older %></a>
+      </nav>
+    <% } %>
+  </div>
+
+  <aside class="side" aria-label="Thanh bên">
+    <h3><%= i18n.sidebar.tagsHeading %></h3>
+    <%- include('../partials/tag-chips', { tags, activeTag }) %>
+
+    <h3><%= i18n.sidebar.recentCommentsHeading %></h3>
+    <ul>
+      <% if (typeof recentComments !== 'undefined' && recentComments.length > 0) { %>
+        <% recentComments.forEach(c => { %>
+          <li>
+            <a href="/posts/<%= c.post_id %>#comment-<%= c.id %>"><%= c.post_title %></a>
+            <small><%= c.author_name %> &bull; <%= c.relative_time %></small>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <li><small><%= i18n.emptyState.noPosts %></small></li>
+      <% } %>
+    </ul>
+  </aside>
+</div>

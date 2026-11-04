@@ -1,0 +1,30 @@
+<section class="wrap settings" data-testid="profile-section">
+  <div class="me">
+    <span class="av lg"><%= user && user.username ? user.username.slice(0, 2).toUpperCase() : 'NA' %></span>
+    <strong><%= user ? user.username : '' %></strong>
+    <span class="badge"><%= user && user.role === 'admin' ? i18n.profile.adminBadge : i18n.profile.roleBadge %></span>
+  </div>
+  <div class="stack">
+    <form class="panel" action="/profile/email" method="post" data-testid="profile-email-form">
+      <h2><%= i18n.profile.emailPanelTitle %></h2>
+      <p><%= i18n.profile.emailPanelDesc %></p>
+      <%- include('../partials/flash', { flash: typeof flash !== 'undefined' ? flash : null }) %>
+      <% if (typeof csrfToken !== 'undefined' && csrfToken) { %>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% } %>
+      <div class="field">
+        <label for="e"><%= i18n.profile.emailLabel %></label>
+        <input id="e" name="email" type="email" value="<%= user ? (user.email || '') : '' %>" required>
+      </div>
+      <button class="btn" type="submit"><%= i18n.profile.saveEmail %></button>
+    </form>
+    <form class="panel" action="/logout" method="post" data-testid="logout-form">
+      <h2><%= i18n.profile.logoutTitle %></h2>
+      <p><%= i18n.profile.logoutDesc %></p>
+      <% if (typeof csrfToken !== 'undefined' && csrfToken) { %>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% } %>
+      <button class="btn ghost" type="submit"><%= i18n.profile.logoutTitle %></button>
+    </form>
+  </div>
+</section>

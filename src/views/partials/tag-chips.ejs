@@ -1,0 +1,12 @@
+<div class="chips">
+  <a class="chip <%= !activeTag ? 'on' : '' %>" href="/" <%- !activeTag ? 'aria-current="page"' : '' %>>
+    <%= i18n.sidebar.allTags %>
+  </a>
+  <% if (typeof tags !== 'undefined' && tags) { %>
+    <% tags.forEach(tag => { %>
+      <a class="chip <%= activeTag === tag.slug ? 'on' : '' %>" href="/?tag=<%= tag.slug %>" <%- activeTag === tag.slug ? 'aria-current="page"' : '' %>>
+        <%= tag.name %>
+      </a>
+    <% }); %>
+  <% } %>
+</div>

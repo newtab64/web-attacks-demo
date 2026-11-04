@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' ? title + ' - ' + i18n.brand.name : i18n.brand.name %></title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#content"><%= i18n.nav.skipToContent %></a>
+  <%- include('nav') %>
+
+  <main id="content">
+    <%- body %>
+  </main>
+
+  <%- include('footer') %>
+
+  <% if (typeof showModeBadge !== 'undefined' && showModeBadge) { %>
+    <aside class="mode-badge <%= isSecure ? 'secure' : 'vulnerable' %>" aria-label="Security Mode">
+      <%= isSecure ? 'Secure' : 'Vulnerable' %>
+    </aside>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div class="wrap narrow page">
+  <h1>
+    <%= results.length %> <%= i18n.search.resultsFor %> “<% if (!isSecure) { %><%- query %><% } else { %><%= query %><% } %>”
+  </h1>
+  <p><%= i18n.search.subtitle %></p>
+
+  <% if (results.length === 0) { %>
+    <%- include('../partials/empty-state', {
+      title: i18n.search.emptyTitle + ' “' + (isSecure ? query : query) + '”',
+      desc: i18n.search.emptyDesc,
+      showBack: true
+    }) %>
+  <% } else { %>
+    <% results.forEach(post => { %>
+      <%- include('../partials/post-item', { post }) %>
+    <% }); %>
+  <% } %>
+</div>

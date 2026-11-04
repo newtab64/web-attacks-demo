@@ -1,0 +1,28 @@
+<div class="auth">
+  <div class="aside">
+    <h2><%= i18n.auth.asideTitle %></h2>
+    <p><%= i18n.auth.asideDesc %></p>
+  </div>
+
+  <form class="form" action="/login" method="POST">
+    <h1><%= i18n.auth.loginTitle %></h1>
+
+    <%- include('../partials/flash') %>
+
+    <div class="field">
+      <label for="username"><%= i18n.auth.username %></label>
+      <input id="username" name="username" autocomplete="username" required>
+    </div>
+
+    <div class="field">
+      <label for="password"><%= i18n.auth.password %></label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+
+    <button class="btn block" type="submit"><%= i18n.auth.submitLogin %></button>
+
+    <p class="alt">
+      <%= i18n.auth.noAccount %> <a href="/register"><%= i18n.auth.createAccount %></a>
+    </p>
+  </form>
+</div>

@@ -1,0 +1,22 @@
+<article class="item" data-testid="post-item">
+  <div class="who">
+    <span class="av"><%= post.author_name ? post.author_name.substring(0, 2).toUpperCase() : 'CD' %></span>
+    <strong><%= post.author_name %></strong>
+    <span><%= post.formatted_date || post.created_at %></span>
+  </div>
+  <h2>
+    <a href="/posts/<%= post.id %>"><%= post.title %></a>
+  </h2>
+  <p class="excerpt"><%= post.excerpt %></p>
+  <div class="foot">
+    <% if (post.tags && post.tags.length > 0) { %>
+      <span class="chips">
+        <% post.tags.forEach(tag => { %>
+          <a class="chip" href="/?tag=<%= tag.slug %>"><%= tag.name %></a>
+        <% }); %>
+      </span>
+    <% } %>
+    <span><%= post.reading_time_min %> <%= i18n.sidebar.minutesRead %></span>
+    <span><%= post.comments_count || 0 %> <%= i18n.sidebar.commentsCount %></span>
+  </div>
+</article>

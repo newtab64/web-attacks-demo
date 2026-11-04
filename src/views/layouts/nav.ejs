@@ -1,0 +1,38 @@
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="logo" aria-hidden="true">&lt;/&gt;</span>
+      <span class="name"><%= i18n.brand.name %></span>
+    </a>
+
+    <form class="search" role="search" action="/search" method="GET">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-3.5-3.5"/>
+      </svg>
+      <input type="search" name="q" placeholder="<%= i18n.nav.searchPlaceholder %>" aria-label="<%= i18n.nav.searchLabel %>" value="<%= typeof query !== 'undefined' ? query : '' %>" required>
+    </form>
+
+    <ul class="links">
+      <li><a href="/"><%= i18n.nav.home %></a></li>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <li>
+          <a class="av" href="/profile" title="<%= i18n.nav.profile %>">
+            <%= user.username.substring(0, 2).toUpperCase() %>
+          </a>
+        </li>
+        <li>
+          <form action="/logout" method="POST">
+            <% if (typeof csrfToken !== 'undefined' && csrfToken) { %>
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <% } %>
+            <button class="btn ghost" type="submit"><%= i18n.nav.logout %></button>
+          </form>
+        </li>
+      <% } else { %>
+        <li><a href="/login"><%= i18n.nav.login %></a></li>
+        <li><a class="btn" href="/register"><%= i18n.nav.register %></a></li>
+      <% } %>
+    </ul>
+  </div>
+</header>
