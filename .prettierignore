@@ -1,0 +1,8 @@
+design-reference/
+dist/
+data/
+public/
+package-lock.json
+node_modules/
+blog.db*
+.superpowers/
