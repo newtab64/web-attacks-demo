@@ -1,116 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Login - Campus Dev Community</title>
-  <style>
-    :root {
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --border-color: #e2e8f0;
-      --radius: 8px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-    header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border-color);
-      padding: 14px 16px;
-    }
-    .nav-container {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .brand { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; }
-    .form-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 28px;
-      max-width: 460px;
-      margin: 60px auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
-    .form-group input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      font-size: 0.95rem;
-    }
-    .btn {
-      display: inline-block;
-      width: 100%;
-      padding: 10px 20px;
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .notice {
-      display: none;
-      margin-top: 20px;
-      padding: 14px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: var(--radius);
-      color: #991b1b;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="nav-container">
-      <a href="#" class="brand">Campus Dev Community</a>
-      <span style="color: var(--text-muted); font-size: 0.9rem;">Sign In</span>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - Campus Devs</title>
+    <style>
+      :root {
+        --bg: #f5f7f6;
+        --surface: #ffffff;
+        --ink: #101a24;
+        --muted: #566472;
+        --line: #dde3e8;
+        --brand: #2646d9;
+        --brand-ink: #ffffff;
+        --mark: #ffd84a;
+        --mark-ink: #3b2f00;
+        --danger: #b42318;
+        --danger-bg: #fef1f0;
+        --r-s: 8px;
+        --r-m: 12px;
+        --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Noto Serif', Georgia, serif;
+        --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d141b;
+          --surface: #141d27;
+          --ink: #e9eef3;
+          --muted: #98a6b3;
+          --line: #263341;
+          --brand: #8ea4ff;
+          --brand-ink: #0b1236;
+          --danger: #ff9a90;
+          --danger-bg: #3a1714;
+        }
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font: 16px/1.6 var(--sans);
+        background: var(--bg);
+        color: var(--ink);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .nav {
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font: 700 1.1rem var(--serif);
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .logo {
+        width: 2rem;
+        height: 2rem;
+        border-radius: var(--r-s);
+        background: var(--mark);
+        color: var(--mark-ink);
+        display: grid;
+        place-items: center;
+        font: 700 0.85rem var(--mono);
+      }
+      .warning-banner {
+        background: var(--danger-bg);
+        border-bottom: 1px solid var(--danger);
+        color: var(--danger);
+        padding: 0.75rem 1.25rem;
+        font-size: 0.88rem;
+        text-align: center;
+      }
+      .container {
+        max-width: 28rem;
+        width: 100%;
+        margin: 3rem auto;
+        padding: 0 1.25rem;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--r-m);
+        padding: 2rem;
+      }
+      h1 {
+        font: 700 1.6rem var(--serif);
+        margin-bottom: 0.5rem;
+      }
+      p.desc {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+      .field {
+        margin-bottom: 1.25rem;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.92rem;
+        margin-bottom: 0.4rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.65rem 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: var(--r-s);
+        background: var(--bg);
+        color: var(--ink);
+        font: inherit;
+      }
+      input:focus {
+        outline: 2px solid var(--brand);
+        border-color: transparent;
+      }
+      button.btn {
+        width: 100%;
+        padding: 0.7rem;
+        border-radius: var(--r-s);
+        border: none;
+        background: var(--brand);
+        color: var(--brand-ink);
+        font: 600 1rem var(--sans);
+        cursor: pointer;
+      }
+      button.btn:hover {
+        filter: brightness(1.08);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="warning-banner">
+      ⚠️ <strong>Lưu ý bảo mật:</strong> Bạn đang ở
+      <code>http://localhost:4000/phishing.html</code>, không phải
+      <code>http://localhost:3000</code>. Trong tấn công giả mạo (phishing), việc nhập thông tin tại
+      đây sẽ gửi mật khẩu của bạn đến máy chủ kẻ tấn công.
     </div>
-  </header>
-
-  <div class="form-card">
-    <h1 style="font-size: 1.6rem; margin-bottom: 20px; text-align: center;">Account Login</h1>
-    <form id="phishForm" onsubmit="captureCredentials(event)">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required autocomplete="username">
+    <header class="nav">
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true">&lt;/&gt;</span>
+        <span>Campus Devs</span>
+      </a>
+    </header>
+    <main class="container">
+      <div class="card">
+        <h1>Đăng nhập</h1>
+        <p class="desc">Tiếp tục từ nơi bạn đã dừng để bình luận và quản lý hồ sơ.</p>
+        <form action="/capture" method="POST">
+          <div class="field">
+            <label for="u">Tên đăng nhập</label>
+            <input id="u" name="username" type="text" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="p">Mật khẩu</label>
+            <input
+              id="p"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <button class="btn" type="submit">Đăng nhập</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn">Sign In</button>
-    </form>
-
-    <div id="demoNotice" class="notice">
-      <strong>[Classroom Demo Simulation]</strong><br>
-      Notice the URL bar: you are on <code>http://localhost:4000/phishing.html</code>, not <code>http://localhost:3000</code>.
-      In a real phishing attack, entering credentials here allows an attacker to capture your username and password while forwarding you to the real site.
-    </div>
-  </div>
-
-  <script>
-    function captureCredentials(e) {
-      e.preventDefault();
-      document.getElementById('demoNotice').style.display = 'block';
-    }
-  </script>
-</body>
+    </main>
+  </body>
 </html>
