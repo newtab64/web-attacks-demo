@@ -7,6 +7,7 @@ import { createCsrfMiddleware } from './core/security/csrf.js';
 import { createWebLocalsMiddleware } from './app/web/middleware/web-locals.js';
 import { webNotFoundHandler, webErrorHandler } from './app/web/middleware/web-error-handler.js';
 import { createWebRouter } from './app/web/routes.js';
+import { createApiRouter } from './app/api/routes.js';
 
 export function createApp(configOverride?: Partial<Env>): Express {
   const appEnv: Env = { ...env, ...configOverride };
@@ -72,8 +73,9 @@ export function createApp(configOverride?: Partial<Env>): Express {
     next();
   });
 
-  // Web routes
+  // Routes
   const mode = appEnv.securityMode;
+  app.use('/api/v1', createApiRouter(mode));
   app.use(createWebRouter(mode));
 
   // 404 & 500 error handlers
