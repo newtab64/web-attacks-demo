@@ -18,7 +18,8 @@
     "test:unit": "vitest run tests/unit",
     "test:e2e": "vitest run tests/e2e",
     "attacker": "tsx attacker/server.ts",
-    "screenshot": "tsx scripts/screenshot.ts"
+    "screenshot": "tsx scripts/screenshot.ts",
+    "screenshots": "tsx scripts/screenshot.ts"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",

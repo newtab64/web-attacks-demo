@@ -12,17 +12,20 @@ The site is styled to look and feel like an authentic Vietnamese student develop
 
 ---
 
-## Tech Stack & Architecture
+## Tech Stack & Layered Architecture
 
-- **Runtime & Language:** Node.js 22 LTS (`.nvmrc` + `engines`), TypeScript 5.8 ESM with strict type checking (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, zero `any`).
-- **Web Framework:** Express 5.3 + EJS server-rendered templates with clean partials.
+- **Runtime & Language:** Node.js 22 LTS (`.nvmrc` + `engines`), TypeScript 5.8 ESM with strict type checking (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, zero `any`). 100% TypeScript with zero `.js` files and zero client-side JavaScript.
+- **Layered Codebase Layout:**
+  - `src/app/web/`: Server-rendered HTML controllers, EJS templates (`views/`), session CSRF verification, and UI navigation.
+  - `src/app/api/`: RESTful JSON API under `/api/v1/` for authentication, post feeds, comments, title search, and profile operations.
+  - `src/core/`: Centralized domain services (`AuthService`, `PostsService`, `CommentsService`, `SearchService`, `ProfileService`), database singletons (`better-sqlite3`), security middleware (`session`, `security-headers`, `rate-limit`, `csrf`), and typed Vietnamese i18n dictionary (`src/core/i18n/vi.ts`).
 - **Styling & Design Tokens:** Tailwind CSS v4 compiled via CLI (`styles/input.css` &rarr; `public/css/style.css`). All theme tokens strictly match `design-reference/blog-ui-template.html`. Zero inline `style=""` attributes.
 - **Database Architecture:** Dual SQLite databases managed via `better-sqlite3` in WAL mode:
   - `data/vulnerable.db`: Stores plaintext passwords for SQLi/auth demonstrations.
   - `data/secure.db`: Stores bcrypt password hashes (`bcryptjs`).
 - **Validation & Security:** Zod for type-safe environment and request body schemas, Helmet in secure mode with strict Content Security Policy (`default-src 'self'`), session CSRF token verification, and failed-login IP rate limiting.
-- **Localization:** 100% Vietnamese UI (`<html lang="vi">`) with all user-facing strings centralized in `src/i18n/vi.ts`. Code, logs, and documentation remain in English.
-- **Automated Verification:** Vitest + Supertest testing suite with 50 passing tests across unit and E2E attack vectors. ESLint 10 flat config with `strictTypeChecked` (`--max-warnings 0`), Prettier.
+- **Localization:** 100% Vietnamese UI (`<html lang="vi">`) with all user-facing strings centralized in `src/core/i18n/vi.ts`. Code, logs, and documentation remain in English.
+- **Automated Verification & CI:** GitHub Actions workflow (`.github/workflows/ci.yml`), Vitest + Supertest testing suite with 67 passing tests across unit, API, and E2E attack vectors. ESLint 10 flat config with `strictTypeChecked` (`--max-warnings 0`), Prettier.
 
 ---
 

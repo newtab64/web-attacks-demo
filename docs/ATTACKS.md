@@ -49,6 +49,16 @@ This document serves as your live lecture demo script for university computer sc
   - The driver treats `admin' --` strictly as literal string data.
   - **Result:** No user with literal name `admin' --` exists. Login fails with flash error: _"Tên đăng nhập hoặc mật khẩu không đúng."_
 
+> [!TIP] > **API Testing Equivalent:**
+>
+> ```bash
+> # Vulnerable mode: Returns 200 with admin user JSON data
+> # Secure mode: Returns 401 {"error":"Tên đăng nhập hoặc mật khẩu không đúng."}
+> curl -X POST http://localhost:3000/api/v1/auth/login \
+>   -H "Content-Type: application/json" \
+>   -d '{"username":"admin'\'' --","password":"any"}'
+> ```
+
 ---
 
 ### 1.2 Title Search Injection
@@ -71,6 +81,14 @@ This document serves as your live lecture demo script for university computer sc
     ```
   - The driver binds `%' OR '1'='1%` literally.
   - **Result:** Finds 0 posts containing that literal pattern and shows: _"0 kết quả cho “' OR '1'='1”"_.
+
+> [!TIP] > **API Testing Equivalent:**
+>
+> ```bash
+> # Vulnerable mode: Returns all posts in {"data":[...]}
+> # Secure mode: Returns 0 posts in {"data":[]}
+> curl "http://localhost:3000/api/v1/search?q='%20OR%20'1'='1"
+> ```
 
 ---
 
