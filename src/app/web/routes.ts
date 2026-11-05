@@ -19,23 +19,45 @@ export function createWebRouter(mode: 'vulnerable' | 'secure'): Router {
   const searchController = createSearchController(mode);
 
   // Home & Posts
-  router.get('/', homeController.renderHome);
-  router.get('/posts/:id', postsController.renderPostDetail);
-  router.post('/posts/:id/comments', commentsController.handleCreateComment);
+  router.get('/', (req, res) => {
+    homeController.renderHome(req, res);
+  });
+  router.get('/posts/:id', (req, res) => {
+    postsController.renderPostDetail(req, res);
+  });
+  router.post('/posts/:id/comments', (req, res) => {
+    commentsController.handleCreateComment(req, res);
+  });
 
   // Authentication
-  router.get('/login', authController.renderLogin);
-  router.post('/login', createRateLimitMiddleware(isSecure), authController.handleLogin);
-  router.get('/register', authController.renderRegister);
-  router.post('/register', authController.handleRegister);
-  router.post('/logout', authController.handleLogout);
+  router.get('/login', (req, res) => {
+    authController.renderLogin(req, res);
+  });
+  router.post('/login', createRateLimitMiddleware(isSecure), (req, res) => {
+    authController.handleLogin(req, res);
+  });
+  router.get('/register', (req, res) => {
+    authController.renderRegister(req, res);
+  });
+  router.post('/register', (req, res) => {
+    authController.handleRegister(req, res);
+  });
+  router.post('/logout', (req, res) => {
+    authController.handleLogout(req, res);
+  });
 
   // Profile
-  router.get('/profile', profileController.renderProfile);
-  router.post('/profile/email', profileController.handleUpdateEmail);
+  router.get('/profile', (req, res) => {
+    profileController.renderProfile(req, res);
+  });
+  router.post('/profile/email', (req, res) => {
+    profileController.handleUpdateEmail(req, res);
+  });
 
   // Search
-  router.get('/search', searchController.renderSearch);
+  router.get('/search', (req, res) => {
+    searchController.renderSearch(req, res);
+  });
 
   return router;
 }

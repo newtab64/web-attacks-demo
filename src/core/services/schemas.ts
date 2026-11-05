@@ -8,7 +8,7 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   username: z.string().min(3).max(30),
   password: z.string().min(6),
-  email: z.string().email(),
+  email: z.email(),
 });
 
 export const createCommentSchema = z.object({
@@ -24,7 +24,7 @@ export const tagQuerySchema = z
 export const postIdSchema = z.coerce.number().int().positive();
 
 export const updateEmailSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
 });
 
 export const searchQuerySchema = z.string().catch('');
