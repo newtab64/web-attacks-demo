@@ -57,12 +57,14 @@ Install pinned production and development dependencies (guaranteed zero vulnerab
 npm install
 ```
 
-### 2. Seed Databases & Compile CSS
+### 2. Seed Databases & Build Application
 
 ```bash
 npm run seed
-npm run build:css
+npm run build
 ```
+
+_(Note: `npm start` also automatically runs `npm run build` via `prestart` if you start without building)._
 
 ### 3. Run the Main Blog Application (Port 3000)
 
