@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import request from 'supertest';
 import { createApp } from '../../src/app.js';
-import { seedDatabase } from '../../src/db/seed.js';
+import { seedDatabase } from '../../src/core/db/seed.js';
 
 describe('Application Factory & Routes', () => {
   beforeAll(() => {

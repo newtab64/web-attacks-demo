@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import { createApp } from '../../src/app.js';
-import { seedDatabase } from '../../src/db/seed.js';
-import { getDb } from '../../src/db/client.js';
-import { clearAllRateLimits } from '../../src/middleware/rate-limit.js';
+import { seedDatabase } from '../../src/core/db/seed.js';
+import { getDb } from '../../src/core/db/client.js';
+import { clearAllRateLimits } from '../../src/core/security/rate-limit.js';
 
 describe('End-to-End Web Attacks & Countermeasures Suite', () => {
   beforeEach(() => {

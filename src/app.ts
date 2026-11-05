@@ -1,16 +1,12 @@
 import express, { type Express } from 'express';
 import path from 'node:path';
-import { env, type Env } from './config/env.js';
-import { createSecurityHeadersMiddleware } from './middleware/security-headers.js';
-import { createSessionMiddleware } from './middleware/session.js';
-import { createLocalsMiddleware } from './middleware/locals.js';
-import { createCsrfMiddleware } from './middleware/csrf.js';
-import { notFoundHandler, errorHandler } from './middleware/error-handler.js';
-import { createAuthRouter } from './modules/auth/routes.js';
-import { createPostsRouter } from './modules/posts/routes.js';
-import { createCommentsRouter } from './modules/comments/routes.js';
-import { createSearchRouter } from './modules/search/routes.js';
-import { createProfileRouter } from './modules/profile/routes.js';
+import { env, type Env } from './core/config/env.js';
+import { createSecurityHeadersMiddleware } from './core/security/security-headers.js';
+import { createSessionMiddleware } from './core/security/session.js';
+import { createCsrfMiddleware } from './core/security/csrf.js';
+import { createWebLocalsMiddleware } from './app/web/middleware/web-locals.js';
+import { webNotFoundHandler, webErrorHandler } from './app/web/middleware/web-error-handler.js';
+import { createWebRouter } from './app/web/routes.js';
 
 export function createApp(configOverride?: Partial<Env>): Express {
   const appEnv: Env = { ...env, ...configOverride };
@@ -21,7 +17,7 @@ export function createApp(configOverride?: Partial<Env>): Express {
 
   // Express view engine setup
   app.set('view engine', 'ejs');
-  app.set('views', path.resolve('src/views'));
+  app.set('views', path.resolve('src/app/web/views'));
 
   if (isSecure) {
     app.disable('x-powered-by');
@@ -37,10 +33,10 @@ export function createApp(configOverride?: Partial<Env>): Express {
 
   // Session & context middleware
   app.use(createSessionMiddleware(appEnv.sessionSecret, isSecure));
-  app.use(createLocalsMiddleware(isSecure, showModeBadge));
+  app.use(createWebLocalsMiddleware(isSecure, showModeBadge));
   app.use(createCsrfMiddleware(isSecure));
 
-  // Layout rendering wrapper: wraps rendered view content inside src/views/layouts/base.ejs
+  // Layout rendering wrapper: wraps rendered view content inside src/app/web/views/layouts/base.ejs
   app.use((_req, res, next) => {
     const originalRender = res.render.bind(res);
 
@@ -76,17 +72,13 @@ export function createApp(configOverride?: Partial<Env>): Express {
     next();
   });
 
-  // Feature routers
+  // Web routes
   const mode = appEnv.securityMode;
-  app.use(createAuthRouter(mode));
-  app.use(createPostsRouter(mode));
-  app.use(createCommentsRouter(mode));
-  app.use(createSearchRouter(mode));
-  app.use(createProfileRouter(mode));
+  app.use(createWebRouter(mode));
 
   // 404 & 500 error handlers
-  app.use(notFoundHandler);
-  app.use(errorHandler);
+  app.use(webNotFoundHandler);
+  app.use(webErrorHandler);
 
   return app;
 }

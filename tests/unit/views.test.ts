@@ -2,14 +2,19 @@ import { describe, it, expect } from 'vitest';
 import ejs from 'ejs';
 import fs from 'node:fs';
 import path from 'node:path';
-import { i18n } from '../../src/i18n/vi.js';
+import { i18n } from '../../src/core/i18n/vi.js';
+import { createWebRouter } from '../../src/app/web/routes.js';
 
 describe('EJS Views & XSS Branching', () => {
-  const viewsDir = path.resolve('src/views');
-  const searchPath = path.resolve('src/views/pages/search.ejs');
-  const commentPath = path.resolve('src/views/partials/comment.ejs');
-  const profilePath = path.resolve('src/views/pages/profile.ejs');
-  const errorPath = path.resolve('src/views/pages/error.ejs');
+  const viewsDir = path.resolve('src/app/web/views');
+  const searchPath = path.resolve('src/app/web/views/pages/search.ejs');
+  const commentPath = path.resolve('src/app/web/views/partials/comment.ejs');
+  const profilePath = path.resolve('src/app/web/views/pages/profile.ejs');
+  const errorPath = path.resolve('src/app/web/views/pages/error.ejs');
+
+  it('exports createWebRouter function', () => {
+    expect(typeof createWebRouter).toBe('function');
+  });
 
   it('renders unescaped search query in vulnerable mode', () => {
     const searchTpl = fs.readFileSync(searchPath, 'utf8');
@@ -137,8 +142,8 @@ describe('EJS Views & XSS Branching', () => {
       }
     };
 
-    scanDir(path.resolve('src/views/pages'));
-    scanDir(path.resolve('src/views/partials'));
-    scanDir(path.resolve('src/views/layouts'));
+    scanDir(path.resolve('src/app/web/views/pages'));
+    scanDir(path.resolve('src/app/web/views/partials'));
+    scanDir(path.resolve('src/app/web/views/layouts'));
   });
 });

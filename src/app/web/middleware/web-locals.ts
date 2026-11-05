@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { i18n } from '../i18n/vi.js';
+import { i18n } from '../../../core/i18n/vi.js';
 
-export function createLocalsMiddleware(isSecure: boolean, showModeBadge: boolean) {
+export function createWebLocalsMiddleware(isSecure: boolean, showModeBadge: boolean) {
   return (req: Request, res: Response, next: NextFunction): void => {
     res.locals.i18n = i18n;
     res.locals.user = req.session?.user || null;

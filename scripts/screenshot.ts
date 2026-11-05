@@ -4,7 +4,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { createApp } from '../src/app.js';
 import { createAttackerApp } from '../attacker/server.js';
-import { seedDatabase } from '../src/db/seed.js';
+import { seedDatabase } from '../src/core/db/seed.js';
 import { addCaptured } from '../attacker/capture.js';
 
 const execFileAsync = promisify(execFile);
