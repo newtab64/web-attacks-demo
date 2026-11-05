@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseEnv } from '../../src/config/env.js';
+import { parseEnv } from '../../src/core/config/env.js';
 
 describe('Environment Configuration', () => {
   it('defaults to secure mode when SECURITY_MODE is omitted', () => {

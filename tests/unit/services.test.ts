@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { seedDatabase } from '../../src/db/seed.js';
-import { AuthService } from '../../src/modules/auth/service.js';
-import { SearchService } from '../../src/modules/search/service.js';
-import { PostsService } from '../../src/modules/posts/service.js';
-import { CommentsService } from '../../src/modules/comments/service.js';
-import { ProfileService } from '../../src/modules/profile/service.js';
+import { seedDatabase } from '../../src/core/db/seed.js';
+import { AuthService } from '../../src/core/services/auth.service.js';
+import { SearchService } from '../../src/core/services/search.service.js';
+import { PostsService } from '../../src/core/services/posts.service.js';
+import { CommentsService } from '../../src/core/services/comments.service.js';
+import { ProfileService } from '../../src/core/services/profile.service.js';
 
 describe('Feature Services & Side-by-Side Branching', () => {
   beforeAll(() => {

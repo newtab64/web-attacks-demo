@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { getDb } from '../../src/db/client.js';
-import { seedDatabase } from '../../src/db/seed.js';
+import { getDb } from '../../src/core/db/client.js';
+import { seedDatabase } from '../../src/core/db/seed.js';
 
 describe('Dual Database Client & Seed', () => {
   beforeAll(() => {

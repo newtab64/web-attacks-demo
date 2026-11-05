@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { i18n } from '../../src/i18n/vi.js';
+import { i18n } from '../../src/core/i18n/vi.js';
 
 describe('Vietnamese i18n Dictionary', () => {
   it('contains all required top-level sections', () => {
