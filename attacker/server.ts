@@ -63,7 +63,7 @@ export function createAttackerApp(): Express {
 </head>
 <body>
   <div class="wrap">
-    <h1>🎯 Bảng điều khiển kẻ tấn công — Thông tin đăng nhập đã thu thập</h1>
+    <h1>🎯 Bảng điều khiển kẻ tấn công: Thông tin đăng nhập đã thu thập</h1>
     <p>Các tài khoản người dùng gửi vào form lừa đảo <code>http://localhost:4000/phishing.html</code> được lưu trữ dưới đây:</p>
     <table>
       <thead>
