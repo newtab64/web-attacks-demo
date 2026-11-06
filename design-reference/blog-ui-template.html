@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Campus Devs: mẫu giao diện</title>
+<title>Trạm Dev: mẫu giao diện</title>
 <!--
 UI SPEC FOR THE AGENT (static preview, open in a browser and click around)
 - This file is the visual reference. Rebuild it as EJS partials + the Tailwind theme.
@@ -172,7 +172,7 @@ main:not(:has(.view:target)) #home{display:block}
 
 <!-- partial: navbar (logged-out) -->
 <header class="nav"><div class="wrap">
-  <a class="brand" href="#home"><span class="logo" aria-hidden="true">&lt;/&gt;</span><span class="name">Campus Devs</span></a>
+  <a class="brand" href="#home"><span class="logo" aria-hidden="true">&lt;/&gt;</span><span class="name">Trạm Dev</span></a>
   <form class="search" role="search" action="#search">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" name="q" placeholder="Tìm bài viết" aria-label="Tìm bài viết">
@@ -208,7 +208,7 @@ main:not(:has(.view:target)) #home{display:block}
       </article>
       <article class="item">
         <div class="who"><span class="av c">QT</span><strong>Quản trị viên</strong><span>25/10/2026</span></div>
-        <h2><a href="#post">Chào mừng đến với Campus Devs</a></h2>
+        <h2><a href="#post">Chào mừng đến với Trạm Dev</a></h2>
         <p class="excerpt">Nơi các bạn sinh viên lập trình chia sẻ hướng dẫn, tin công nghệ trong trường và các dự án code.</p>
         <div class="foot"><span class="chips"><a class="chip" href="#search">Cộng đồng</a></span><span>2 phút đọc</span><span>1 bình luận</span></div>
       </article>
@@ -245,7 +245,7 @@ main:not(:has(.view:target)) #home{display:block}
       <div class="comment"><span class="av c">QT</span><div><div class="head"><strong>Quản trị viên</strong>Hôm qua</div><p>Cảm ơn bạn đã chia sẻ cho cộng đồng.</p></div></div>
       <form class="panel mt" action="#post" method="post">
         <h2 class="sm">Viết bình luận</h2>
-        <div class="field"><label for="cn">Tên của bạn</label><input id="cn" name="author_name" value="alice" required></div>
+        <div class="field"><label for="cn">Tên của bạn</label><input id="cn" name="author_name" value="minhanh" required></div>
         <div class="field"><label for="cc">Bình luận</label><textarea id="cc" name="content" rows="4" required></textarea></div>
         <button class="btn" type="submit">Gửi bình luận</button>
       </form>
@@ -286,14 +286,14 @@ main:not(:has(.view:target)) #home{display:block}
 <!-- VIEW: profile -->
 <section class="view" id="profile">
   <div class="wrap settings">
-    <div class="me"><span class="av lg">NA</span><strong>alice</strong><span class="badge">Thành viên</span></div>
+    <div class="me"><span class="av lg">NA</span><strong>minhanh</strong><span class="badge">Thành viên</span></div>
     <div class="stack">
       <form class="panel" action="#profile" method="post">
         <h2>Địa chỉ email</h2>
         <p>Chúng tôi dùng email này để gửi thông báo tài khoản và đặt lại mật khẩu.</p>
         <div class="flash ok" role="status">Đã cập nhật email.</div>
         <input type="hidden" name="_csrf" value="token-from-session">
-        <div class="field"><label for="e">Email</label><input id="e" name="email" type="email" value="alice@campusblog.local" required></div>
+        <div class="field"><label for="e">Email</label><input id="e" name="email" type="email" value="minhanh@tramdev.local" required></div>
         <button class="btn" type="submit">Lưu email</button>
       </form>
       <form class="panel" action="#home" method="post">
@@ -309,7 +309,7 @@ main:not(:has(.view:target)) #home{display:block}
 </main>
 
 <!-- partial: footer -->
-<footer class="foot-site"><div class="wrap"><span>Campus Devs, do sinh viên xây dựng.</span><span><a href="#home">Trang chủ</a><a href="#profile">Hồ sơ</a></span></div></footer>
+<footer class="foot-site"><div class="wrap"><span>Trạm Dev, do sinh viên xây dựng.</span><span><a href="#home">Trang chủ</a><a href="#profile">Hồ sơ</a></span></div></footer>
 
 </body>
 </html>

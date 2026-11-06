@@ -9,10 +9,10 @@ describe('Dual Database Client & Seed', () => {
 
   it('seeds data/vulnerable.db with plaintext passwords', () => {
     const db = getDb('vulnerable');
-    const admin = db
+    const quantri = db
       .prepare('SELECT username, password FROM users WHERE username = ?')
-      .get('admin') as { username: string; password: string };
-    expect(admin.password).toBe('admin123');
+      .get('quantri') as { username: string; password: string };
+    expect(quantri.password).toBe('quantri123');
 
     const posts = db.prepare('SELECT COUNT(*) as count FROM posts').get() as { count: number };
     expect(posts.count).toBeGreaterThanOrEqual(8);
@@ -23,10 +23,10 @@ describe('Dual Database Client & Seed', () => {
 
   it('seeds data/secure.db with bcrypt password hashes', () => {
     const db = getDb('secure');
-    const admin = db
+    const quantri = db
       .prepare('SELECT username, password FROM users WHERE username = ?')
-      .get('admin') as { username: string; password: string };
-    expect(admin.password.startsWith('$2')).toBe(true);
+      .get('quantri') as { username: string; password: string };
+    expect(quantri.password.startsWith('$2')).toBe(true);
 
     const posts = db.prepare('SELECT COUNT(*) as count FROM posts').get() as { count: number };
     expect(posts.count).toBeGreaterThanOrEqual(8);

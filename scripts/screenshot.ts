@@ -27,7 +27,7 @@ seedDatabase();
 
 // Preload a captured credential for the dashboard screenshot
 addCaptured({
-  username: 'alice',
+  username: 'minhanh',
   password: 'alicePassword123!',
   ip: '127.0.0.1',
 });
@@ -98,7 +98,7 @@ const targets: ScreenshotTarget[] = [
   },
   {
     name: '09-profile.png',
-    url: 'http://localhost:3000/profile?preview_user=alice',
+    url: 'http://localhost:3000/profile?preview_user=minhanh',
     width: 1280,
     height: 900,
     darkMode: false,

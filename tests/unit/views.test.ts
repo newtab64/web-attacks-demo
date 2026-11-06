@@ -99,13 +99,13 @@ describe('EJS Views & XSS Branching', () => {
       {
         i18n,
         isSecure: true,
-        user: { username: 'alice', email: 'alice@campusblog.local', role: 'member' },
+        user: { username: 'minhanh', email: 'minhanh@tramdev.local', role: 'member' },
         csrfToken: 'test-token-123',
         flash: null,
       },
       { views: [viewsDir], filename: profilePath },
     );
-    expect(html).toContain('alice@campusblog.local');
+    expect(html).toContain('minhanh@tramdev.local');
     expect(html).toContain('test-token-123');
     expect(html).toContain('name="_csrf"');
   });

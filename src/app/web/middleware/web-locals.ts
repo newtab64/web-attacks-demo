@@ -9,12 +9,12 @@ export function createWebLocalsMiddleware(isSecure: boolean, showModeBadge: bool
     if (
       !res.locals.user &&
       process.env['NODE_ENV'] !== 'production' &&
-      req.query['preview_user'] === 'alice'
+      req.query['preview_user'] === 'minhanh'
     ) {
       res.locals.user = {
         id: 2,
-        username: 'alice',
-        email: 'alice@campusblog.local',
+        username: 'minhanh',
+        email: 'minhanh@tramdev.local',
         role: 'member',
       };
     }

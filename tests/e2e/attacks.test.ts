@@ -17,7 +17,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
       const res = await request(vulnApp)
         .post('/login')
         .type('form')
-        .send({ username: "admin' --", password: 'anypassword' });
+        .send({ username: "quantri' --", password: 'anypassword' });
 
       expect(res.status).toBe(302);
       expect(res.header.location).toBe('/');
@@ -29,7 +29,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
       const res = await request(secApp)
         .post('/login')
         .type('form')
-        .send({ username: "admin' --", password: 'anypassword' });
+        .send({ username: "quantri' --", password: 'anypassword' });
 
       expect(res.status).toBe(401);
       expect(res.text).toContain('Tên đăng nhập hoặc mật khẩu không đúng.');
@@ -111,11 +111,11 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
     it('Vulnerable mode: allows cross-origin email update without CSRF token', async () => {
       const vulnApp = createApp({ securityMode: 'vulnerable' });
 
-      // Alice logs in
+      // Minh Anh đăng nhập
       const loginRes = await request(vulnApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookie = (loginRes.header['set-cookie'] as string[] | undefined) ?? [];
       expect(cookie.length).toBeGreaterThan(0);
@@ -133,7 +133,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
       const db = getDb('vulnerable');
       const updatedAlice = db
         .prepare('SELECT email FROM users WHERE username = ?')
-        .get('alice') as {
+        .get('minhanh') as {
         email: string;
       };
       expect(updatedAlice.email).toBe('attacker_pwned@example.com');
@@ -142,11 +142,11 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
     it('Secure mode: rejects email update without valid CSRF token with 403 Forbidden', async () => {
       const secApp = createApp({ securityMode: 'secure' });
 
-      // Alice logs in
+      // Minh Anh đăng nhập
       const loginRes = await request(secApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookie = (loginRes.header['set-cookie'] as string[] | undefined) ?? [];
       expect(cookie.length).toBeGreaterThan(0);
@@ -163,10 +163,10 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
 
       // Verify email was NOT altered
       const db = getDb('secure');
-      const alice = db.prepare('SELECT email FROM users WHERE username = ?').get('alice') as {
+      const member = db.prepare('SELECT email FROM users WHERE username = ?').get('minhanh') as {
         email: string;
       };
-      expect(alice.email).toBe('alice@campusblog.local');
+      expect(member.email).toBe('minhanh@tramdev.local');
     });
 
     it('Secure mode: allows email update with valid session CSRF token', async () => {
@@ -175,7 +175,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
       const loginRes = await request(secApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookie = (loginRes.header['set-cookie'] as string[] | undefined) ?? [];
       expect(cookie.length).toBeGreaterThan(0);
@@ -192,33 +192,33 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
         .post('/profile/email')
         .set('Cookie', cookie)
         .type('form')
-        .send({ email: 'alice_new_email@campusblog.local', _csrf: csrfToken });
+        .send({ email: 'minhanh_new_email@tramdev.local', _csrf: csrfToken });
 
       expect(updateRes.status).toBe(302);
 
       const db = getDb('secure');
-      const alice = db.prepare('SELECT email FROM users WHERE username = ?').get('alice') as {
+      const member = db.prepare('SELECT email FROM users WHERE username = ?').get('minhanh') as {
         email: string;
       };
-      expect(alice.email).toBe('alice_new_email@campusblog.local');
+      expect(member.email).toBe('minhanh_new_email@tramdev.local');
     });
   });
 
   describe('4. Broken Authentication & Session Management', () => {
     it('Vulnerable mode: passwords stored as plaintext, cookies lack HttpOnly', async () => {
       const vulnDb = getDb('vulnerable');
-      const alice = vulnDb
+      const member = vulnDb
         .prepare('SELECT password FROM users WHERE username = ?')
-        .get('alice') as {
+        .get('minhanh') as {
         password: string;
       };
-      expect(alice.password).toBe('alice123');
+      expect(member.password).toBe('minhanh123');
 
       const vulnApp = createApp({ securityMode: 'vulnerable' });
       const loginRes = await request(vulnApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookieHeader = JSON.stringify(loginRes.header['set-cookie'] || []);
       expect(cookieHeader.toLowerCase()).not.toContain('httponly');
@@ -227,16 +227,18 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
 
     it('Secure mode: passwords stored as bcrypt hashes, cookies have HttpOnly and SameSite=Lax', async () => {
       const secDb = getDb('secure');
-      const alice = secDb.prepare('SELECT password FROM users WHERE username = ?').get('alice') as {
+      const member = secDb
+        .prepare('SELECT password FROM users WHERE username = ?')
+        .get('minhanh') as {
         password: string;
       };
-      expect(alice.password.startsWith('$2')).toBe(true);
+      expect(member.password.startsWith('$2')).toBe(true);
 
       const secApp = createApp({ securityMode: 'secure' });
       const loginRes = await request(secApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookieHeader = JSON.stringify(loginRes.header['set-cookie'] || []);
       expect(cookieHeader.toLowerCase()).toContain('httponly');
@@ -250,7 +252,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
         const failRes = await request(secApp)
           .post('/login')
           .type('form')
-          .send({ username: 'alice', password: 'wrongpassword' });
+          .send({ username: 'minhanh', password: 'wrongpassword' });
         expect(failRes.status).toBe(401);
       }
 
@@ -258,7 +260,7 @@ describe('End-to-End Web Attacks & Countermeasures Suite', () => {
       const blockedRes = await request(secApp)
         .post('/login')
         .type('form')
-        .send({ username: 'alice', password: 'wrongpassword' });
+        .send({ username: 'minhanh', password: 'wrongpassword' });
 
       expect(blockedRes.status).toBe(429);
       expect(blockedRes.text).toContain('Quá nhiều lần đăng nhập không thành công.');

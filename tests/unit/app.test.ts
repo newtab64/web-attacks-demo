@@ -14,7 +14,7 @@ describe('Application Factory & Routes', () => {
   it('serves home page with posts and tags', async () => {
     const res = await request(secureApp).get('/');
     expect(res.status).toBe(200);
-    expect(res.text).toContain('Campus Devs');
+    expect(res.text).toContain('Trạm Dev');
     expect(res.text).toContain('Bắt đầu với Node.js và SQLite');
     expect(res.headers['x-security-mode']).toBe('secure');
     expect(res.headers['content-security-policy']).toBeDefined();

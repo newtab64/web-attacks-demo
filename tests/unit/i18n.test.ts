@@ -3,7 +3,7 @@ import { i18n } from '../../src/core/i18n/vi.js';
 
 describe('Vietnamese i18n Dictionary', () => {
   it('contains all required top-level sections', () => {
-    expect(i18n.brand.name).toBe('Campus Devs');
+    expect(i18n.brand.name).toBe('Trạm Dev');
     expect(i18n.nav.home).toBe('Trang chủ');
     expect(i18n.nav.login).toBe('Đăng nhập');
     expect(i18n.nav.register).toBe('Đăng ký');

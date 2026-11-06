@@ -22,13 +22,13 @@ This document serves as your live lecture demo script for university computer sc
 ### 1.1 Authentication Bypass (Login)
 
 - **Target URL:** `http://localhost:3000/login`
-- **Username Payload:** `admin' --`
+- **Username Payload:** `quantri' --`
 - **Password:** `anypassword` (can be anything)
 
 #### Execution Steps:
 
 1. Navigate to `http://localhost:3000/login`.
-2. In the **Tên đăng nhập** (Username) field, paste: `admin' --`.
+2. In the **Tên đăng nhập** (Username) field, paste: `quantri' --`.
 3. In the **Mật khẩu** (Password) field, type any characters.
 4. Click **Đăng nhập**.
 
@@ -37,26 +37,26 @@ This document serves as your live lecture demo script for university computer sc
 - **In Vulnerable Mode (`SECURITY_MODE=vulnerable`):**
   - Query executed:
     ```sql
-    SELECT * FROM users WHERE username = 'admin' --' AND password = '...'
+    SELECT * FROM users WHERE username = 'quantri' --' AND password = '...'
     ```
   - The single quote `'` closes the username literal, and `--` comments out the password clause.
-  - **Result:** You are instantly authenticated as `admin` and redirected to the home page with full administrative privileges.
+  - **Result:** You are instantly authenticated as `quantri` and redirected to the home page with full administrative privileges.
 - **In Secure Mode (`SECURITY_MODE=secure`):**
   - Query executed:
     ```sql
     SELECT * FROM users WHERE username = ?
     ```
-  - The driver treats `admin' --` strictly as literal string data.
-  - **Result:** No user with literal name `admin' --` exists. Login fails with flash error: _"Tên đăng nhập hoặc mật khẩu không đúng."_
+  - The driver treats `quantri' --` strictly as literal string data.
+  - **Result:** No user with literal name `quantri' --` exists. Login fails with flash error: _"Tên đăng nhập hoặc mật khẩu không đúng."_
 
 > [!TIP] > **API Testing Equivalent:**
 >
 > ```bash
-> # Vulnerable mode: Returns 200 with admin user JSON data
+> # Vulnerable mode: Returns 200 with quantri user JSON data
 > # Secure mode: Returns 401 {"error":"Tên đăng nhập hoặc mật khẩu không đúng."}
 > curl -X POST http://localhost:3000/api/v1/auth/login \
 >   -H "Content-Type: application/json" \
->   -d '{"username":"admin'\'' --","password":"any"}'
+>   -d '{"username":"quantri'\'' --","password":"any"}'
 > ```
 
 ---
@@ -138,12 +138,12 @@ This document serves as your live lecture demo script for university computer sc
 
 ### Scenario
 
-An authenticated student (e.g. `alice`) is logged in on `http://localhost:3000`. In another browser tab, the student is lured to a malicious third-party site on `http://localhost:4000/csrf.html` claiming they won a prize.
+An authenticated student (e.g. `minhanh`) is logged in on `http://localhost:3000`. In another browser tab, the student is lured to a malicious third-party site on `http://localhost:4000/csrf.html` claiming they won a prize.
 
 ### Attack Steps:
 
-1. In your browser, log in as `alice` (`alice123`) on `http://localhost:3000/login`.
-2. Verify you can view your profile at `http://localhost:3000/profile` (email is `alice@campusblog.local`).
+1. In your browser, log in as `minhanh` (`minhanh123`) on `http://localhost:3000/login`.
+2. Verify you can view your profile at `http://localhost:3000/profile` (email is `minhanh@tramdev.local`).
 3. In a new tab (or window), visit: `http://localhost:4000/csrf.html`.
 4. The page displays a convincing "Congratulations! Student Laptop Giveaway" loader and silently auto-submits a hidden form to `http://localhost:3000/profile/email` setting `email=attacker@pwned.com`.
 
@@ -151,12 +151,12 @@ An authenticated student (e.g. `alice`) is logged in on `http://localhost:3000`.
 
 - **In Vulnerable Mode:**
   - The session cookie lacks `SameSite=Lax` and the server does not validate CSRF tokens.
-  - The browser attaches Alice's session cookie to the cross-site POST request.
-  - **Result:** Alice's email address is silently changed to `attacker@pwned.com` without her consent.
+  - The browser attaches Minh Anh's session cookie to the cross-site POST request.
+  - **Result:** Minh Anh's email address is silently changed to `attacker@pwned.com` without her consent.
 - **In Secure Mode:**
   - The session cookie has `SameSite=Lax`, and state-changing POST requests require a hidden `_csrf` session token.
   - The cross-site request does not possess a valid token.
-  - **Result:** Request is blocked with HTTP `403 Forbidden` (_"403 - Lỗi CSRF"_). Alice's email remains intact.
+  - **Result:** Request is blocked with HTTP `403 Forbidden` (_"403 - Lỗi CSRF"_). Minh Anh's email remains intact.
 
 ---
 
@@ -169,11 +169,11 @@ An authenticated student (e.g. `alice`) is logged in on `http://localhost:3000`.
   ```bash
   # Vulnerable database stores plaintext
   sqlite3 data/vulnerable.db "SELECT username, password FROM users;"
-  # Output: admin|admin123, alice|alice123, bob|bob123
+  # Output: quantri|quantri123, minhanh|minhanh123, quocbao|quocbao123
 
   # Secure database stores bcrypt salt and hash
   sqlite3 data/secure.db "SELECT username, password FROM users;"
-  # Output: admin|$2a$10$..., alice|$2a$10$..., bob|$2a$10$...
+  # Output: quantri|$2a$10$..., minhanh|$2a$10$..., quocbao|$2a$10$...
   ```
 
 ### 4.2 Cookie Flags (HttpOnly & SameSite)
@@ -197,7 +197,7 @@ An authenticated student (e.g. `alice`) is logged in on `http://localhost:3000`.
    npm run attacker
    ```
 2. Open `http://localhost:4000/phishing.html`.
-3. Notice that the page mimics the authentic Vietnamese Campus Devs login interface, but the URL bar clearly indicates port `4000`.
+3. Notice that the page mimics the authentic Vietnamese Trạm Dev login interface, but the URL bar clearly indicates port `4000`.
 4. Enter test credentials and submit the form.
 5. The form submits to `POST http://localhost:4000/capture` and redirects to `http://localhost:4000/captured`.
 6. Inspect the live captured credential dashboard showing timestamp, username, password, and client IP.

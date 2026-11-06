@@ -27,12 +27,12 @@ describe('REST JSON API (/api/v1/)', () => {
       const app = createApp({ securityMode: 'secure' });
       const res = await request(app)
         .post('/api/v1/auth/login')
-        .send({ username: 'admin', password: 'admin123' });
+        .send({ username: 'quantri', password: 'quantri123' });
 
       const body = res.body as JsonResponse<SessionUser>;
       expect(res.status).toBe(200);
       expect(body.data).toBeDefined();
-      expect(body.data?.username).toBe('admin');
+      expect(body.data?.username).toBe('quantri');
       expect(res.headers['set-cookie']).toBeDefined();
     });
 
@@ -40,7 +40,7 @@ describe('REST JSON API (/api/v1/)', () => {
       const app = createApp({ securityMode: 'secure' });
       const res = await request(app)
         .post('/api/v1/auth/login')
-        .send({ username: 'admin', password: 'wrongpassword' });
+        .send({ username: 'quantri', password: 'wrongpassword' });
 
       const body = res.body as JsonResponse;
       expect(res.status).toBe(401);
@@ -51,11 +51,11 @@ describe('REST JSON API (/api/v1/)', () => {
       const app = createApp({ securityMode: 'vulnerable' });
       const res = await request(app)
         .post('/api/v1/auth/login')
-        .send({ username: "admin' --", password: 'any' });
+        .send({ username: "quantri' --", password: 'any' });
 
       const body = res.body as JsonResponse<SessionUser>;
       expect(res.status).toBe(200);
-      expect(body.data?.username).toBe('admin');
+      expect(body.data?.username).toBe('quantri');
     });
 
     it('POST /api/v1/auth/login: secure mode enforces rate limit on 6th failed attempt', async () => {
@@ -63,13 +63,13 @@ describe('REST JSON API (/api/v1/)', () => {
       for (let i = 0; i < 5; i++) {
         const res = await request(app)
           .post('/api/v1/auth/login')
-          .send({ username: 'admin', password: 'bad' });
+          .send({ username: 'quantri', password: 'bad' });
         expect(res.status).toBe(401);
       }
 
       const rateLimitedRes = await request(app)
         .post('/api/v1/auth/login')
-        .send({ username: 'admin', password: 'bad' });
+        .send({ username: 'quantri', password: 'bad' });
 
       const body = rateLimitedRes.body as JsonResponse;
       expect(rateLimitedRes.status).toBe(429);
@@ -103,7 +103,7 @@ describe('REST JSON API (/api/v1/)', () => {
       const app = createApp({ securityMode: 'secure' });
       const loginRes = await request(app)
         .post('/api/v1/auth/login')
-        .send({ username: 'alice', password: 'alice123' });
+        .send({ username: 'minhanh', password: 'minhanh123' });
 
       const cookie = loginRes.headers['set-cookie'];
       expect(cookie).toBeDefined();
@@ -114,8 +114,8 @@ describe('REST JSON API (/api/v1/)', () => {
 
       const body = profileRes.body as JsonResponse<SessionUser>;
       expect(profileRes.status).toBe(200);
-      expect(body.data?.username).toBe('alice');
-      expect(body.data?.email).toBe('alice@campusblog.local');
+      expect(body.data?.username).toBe('minhanh');
+      expect(body.data?.email).toBe('minhanh@tramdev.local');
     });
   });
 

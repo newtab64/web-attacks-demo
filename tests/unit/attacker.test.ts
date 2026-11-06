@@ -12,7 +12,7 @@ describe('Attacker Server (Port 4000)', () => {
   it('serves phishing page with convincing Vietnamese styling', async () => {
     const res = await request(app).get('/phishing.html');
     expect(res.status).toBe(200);
-    expect(res.text).toContain('Campus Devs');
+    expect(res.text).toContain('Trạm Dev');
     expect(res.text).toContain('Đăng nhập');
   });
 

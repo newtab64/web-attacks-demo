@@ -1,6 +1,6 @@
 export const i18n = {
   brand: {
-    name: 'Campus Devs',
+    name: 'Trạm Dev',
     slogan: 'Ghi chép từ những sinh viên thích làm ra sản phẩm',
     subSlogan:
       'Hướng dẫn, tin công nghệ trong trường và bài viết về dự án từ các bạn sinh viên lập trình.',
@@ -45,6 +45,7 @@ export const i18n = {
     rateLimitExceeded: 'Quá nhiều lần đăng nhập không thành công. Vui lòng thử lại sau 5 phút.',
   },
   post: {
+    defaultCategory: 'Chung',
     commentsTitle: 'Bình luận',
     leaveComment: 'Viết bình luận',
     authorName: 'Tên của bạn',
@@ -81,13 +82,18 @@ export const i18n = {
     serverErrorTitle: '500 - Lỗi máy chủ',
     serverErrorDesc: 'Đã xảy ra sự cố nội bộ. Vui lòng thử lại sau ít phút.',
   },
+  modeBadge: {
+    label: 'Chế độ bảo mật',
+    secure: 'An toàn',
+    vulnerable: 'Có lỗ hổng',
+  },
   footer: {
-    credit: 'Campus Devs, do sinh viên xây dựng.',
+    credit: 'Trạm Dev, do sinh viên xây dựng.',
     home: 'Trang chủ',
     profile: 'Hồ sơ',
   },
   attacker: {
-    phishingTitle: 'Đăng nhập - Campus Devs',
+    phishingTitle: 'Đăng nhập - Trạm Dev',
     phishingNotice:
       'Lưu ý thanh địa chỉ: bạn đang ở http://localhost:4000/phishing.html, không phải http://localhost:3000. Trong một cuộc tấn công lừa đảo thực tế, việc nhập thông tin đăng nhập tại đây sẽ gửi mật khẩu của bạn đến máy chủ kẻ tấn công.',
     capturedTitle: 'Dữ liệu thông tin đăng nhập đã đánh cắp',

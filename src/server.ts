@@ -5,6 +5,6 @@ const app = createApp();
 
 app.listen(env.port, () => {
   console.log(
-    `[Campus Devs] Server running at http://localhost:${env.port} (${env.securityMode} mode)`,
+    `[Trạm Dev] Server running at http://localhost:${env.port} (${env.securityMode} mode)`,
   );
 });

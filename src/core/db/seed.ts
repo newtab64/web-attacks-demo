@@ -35,21 +35,21 @@ interface SeedPost {
 
 export const users: SeedUser[] = [
   {
-    username: 'admin',
-    pass: 'admin123',
-    email: 'admin@campusblog.local',
+    username: 'quantri',
+    pass: 'quantri123',
+    email: 'quantri@tramdev.local',
     role: 'admin',
   },
   {
-    username: 'alice',
-    pass: 'alice123',
-    email: 'alice@campusblog.local',
+    username: 'minhanh',
+    pass: 'minhanh123',
+    email: 'minhanh@tramdev.local',
     role: 'member',
   },
   {
-    username: 'bob',
-    pass: 'bob123',
-    email: 'bob@campusblog.local',
+    username: 'quocbao',
+    pass: 'quocbao123',
+    email: 'quocbao@tramdev.local',
     role: 'member',
   },
 ];
@@ -71,7 +71,7 @@ export const posts: SeedPost[] = [
       'SQLite kết hợp rất hợp với Node.js khi bạn đang học cách máy chủ làm việc với cơ sở dữ liệu. Không cần cài dịch vụ nền nào, và cả cơ sở dữ liệu chỉ là một tệp mà bạn có thể sao chép hoặc xóa.\n\nThói quen đáng tập ngay từ ngày đầu là không bao giờ ghép dữ liệu người dùng nhập vào chuỗi truy vấn. Hãy dùng placeholder và để driver truyền giá trị riêng:\n\n```javascript\nconst post = db.prepare("SELECT * FROM posts WHERE id = ?").get(id);\n```\n\nChỉ một dòng này là khác biệt giữa một bài tập hướng dẫn và một thứ bạn có thể yên tâm đưa lên mạng.',
     excerpt:
       'SQLite kết hợp Node.js là bộ công cụ nhẹ để học kiến trúc máy chủ. Không cần cấu hình dịch vụ nền, chỉ cần một tệp.',
-    authorUsername: 'alice',
+    authorUsername: 'minhanh',
     readingTimeMin: 6,
     tagSlugs: ['nodejs', 'database'],
     createdAt: '2026-10-27 10:00:00',
@@ -94,7 +94,7 @@ export const posts: SeedPost[] = [
     content:
       'Ba người, một repository và một hạn nộp bài tập lớn. Những ngày đầu cả nhóm liên tục gặp conflict vì ai cũng đẩy code trực tiếp lên nhánh main.\n\nSau tuần đầu bối rối, tụi mình thống nhất quy trình làm việc với feature branch, pull request và bắt buộc ít nhất một người duyệt trước khi merge. Dự án hoàn thành đúng hạn và ai cũng học được cách phối hợp chuyên nghiệp.',
     excerpt: 'Ba người, một repo và một hạn nộp. Những lỗi tụi mình mắc với branch và cách sửa.',
-    authorUsername: 'bob',
+    authorUsername: 'quocbao',
     readingTimeMin: 8,
     tagSlugs: ['git', 'community'],
     createdAt: '2026-10-26 14:00:00',
@@ -107,19 +107,19 @@ export const posts: SeedPost[] = [
     ],
   },
   {
-    title: 'Chào mừng đến với Campus Devs',
-    slug: 'chao-mung-den-voi-campus-devs',
+    title: 'Chào mừng đến với Trạm Dev',
+    slug: 'chao-mung-den-voi-tram-dev',
     content:
-      'Campus Devs là không gian dành riêng cho các bạn sinh viên đam mê công nghệ và lập trình. Tại đây, bạn có thể chia sẻ các bài học kinh nghiệm, đặt câu hỏi về các lỗi thường gặp trong đồ án, hoặc giới thiệu sản phẩm phần mềm của nhóm mình.\n\nHãy cùng nhau xây dựng một cộng đồng học thuật cởi mở và tiến bộ!',
+      'Trạm Dev là không gian dành riêng cho các bạn sinh viên đam mê công nghệ và lập trình. Tại đây, bạn có thể chia sẻ các bài học kinh nghiệm, đặt câu hỏi về các lỗi thường gặp trong đồ án, hoặc giới thiệu sản phẩm phần mềm của nhóm mình.\n\nHãy cùng nhau xây dựng một cộng đồng học thuật cởi mở và tiến bộ!',
     excerpt:
       'Nơi các bạn sinh viên lập trình chia sẻ hướng dẫn, tin công nghệ trong trường và các dự án code.',
-    authorUsername: 'admin',
+    authorUsername: 'quantri',
     readingTimeMin: 2,
     tagSlugs: ['community'],
     createdAt: '2026-10-25 09:00:00',
     comments: [
       {
-        authorName: 'alice',
+        authorName: 'minhanh',
         content: 'Rất vui được đồng hành cùng mọi người!',
         createdAt: '2026-10-25 09:30:00',
       },
@@ -132,7 +132,7 @@ export const posts: SeedPost[] = [
       'Khi dữ liệu tăng lên hàng chục ngàn dòng, việc thiếu index sẽ khiến truy vấn chậm rõ rệt. Hãy sử dụng EXPLAIN QUERY PLAN để kiểm tra xem SQLite có đang duyệt toàn bộ bảng hay sử dụng chỉ mục thích hợp.\n\nNgoài ra, luôn bọc các thao tác ghi hàng loạt trong transaction để giảm thiểu thao tác ghi đĩa vật lý.',
     excerpt:
       'Cách sử dụng index và transaction để tăng tốc độ đọc ghi cơ sở dữ liệu lên gấp nhiều lần.',
-    authorUsername: 'alice',
+    authorUsername: 'minhanh',
     readingTimeMin: 5,
     tagSlugs: ['database'],
     createdAt: '2026-10-28 16:00:00',
@@ -145,13 +145,13 @@ export const posts: SeedPost[] = [
       'Một website tốt không chỉ đẹp mà còn phải tiếp cận được với mọi đối tượng người dùng, bao gồm cả những người sử dụng trình đọc màn hình. Hãy chú ý đến độ tương phản màu sắc, cấu trúc heading hợp lý và hỗ trợ điều hướng hoàn toàn bằng bàn phím.\n\nSử dụng thẻ semantic như `<main>`, `<nav>`, `<article>` thay vì chỉ dùng thẻ `<div>`.',
     excerpt:
       'Các nguyên tắc cốt lõi giúp giao diện web thân thiện với bàn phím và trình đọc màn hình.',
-    authorUsername: 'bob',
+    authorUsername: 'quocbao',
     readingTimeMin: 7,
     tagSlugs: ['frontend'],
     createdAt: '2026-10-29 11:00:00',
     comments: [
       {
-        authorName: 'admin',
+        authorName: 'quantri',
         content: 'Bài viết rất thiết thực cho các bạn làm đồ án môn Web.',
         createdAt: '2026-10-29 13:00:00',
       },
@@ -163,7 +163,7 @@ export const posts: SeedPost[] = [
     content:
       'Git merge giữ nguyên toàn bộ lịch sử các commit phân nhánh, trong khi Git rebase viết lại lịch sử thành một đường thẳng liền mạch. Khi làm việc cá nhân trên feature branch, rebase giúp nhánh gọn gàng trước khi tạo pull request.\n\nTuy nhiên, tuyệt đối không rebase các commit đã được đẩy lên nhánh công khai mà nhiều người cùng làm việc.',
     excerpt: 'So sánh ưu nhược điểm giữa merge và rebase cùng nguyên tắc vàng khi làm việc nhóm.',
-    authorUsername: 'bob',
+    authorUsername: 'quocbao',
     readingTimeMin: 4,
     tagSlugs: ['git'],
     createdAt: '2026-10-30 08:30:00',
@@ -175,13 +175,13 @@ export const posts: SeedPost[] = [
     content:
       'Viết test ban đầu có vẻ tốn thời gian, nhưng nó tiết kiệm hàng giờ gỡ lỗi khi dự án mở rộng. Hãy bắt đầu từ các hàm thuần túy (pure functions), kiểm tra cả trường hợp đầu vào hợp lệ lẫn trường hợp biên.\n\nSử dụng các framework hiện đại như Vitest giúp việc chạy test diễn ra tức thì nhờ tốc độ xử lý nhanh chóng.',
     excerpt: 'Tại sao bạn nên tập viết test từ sớm và cách tiếp cận từ dễ đến khó với Vitest.',
-    authorUsername: 'alice',
+    authorUsername: 'minhanh',
     readingTimeMin: 5,
     tagSlugs: ['nodejs'],
     createdAt: '2026-10-31 15:45:00',
     comments: [
       {
-        authorName: 'bob',
+        authorName: 'quocbao',
         content: 'Nhờ có test mà refactor code tự tin hơn hẳn!',
         createdAt: '2026-10-31 17:00:00',
       },
@@ -194,7 +194,7 @@ export const posts: SeedPost[] = [
       'Authentication (Xác thực) trả lời câu hỏi: Bạn là ai? Còn Authorization (Phân quyền) trả lời câu hỏi: Bạn có quyền làm gì?\n\nTrong các ứng dụng web, việc nhầm lẫn hoặc kiểm tra phân quyền lỏng lẻo có thể dẫn đến các lỗ hổng nghiêm trọng như IDOR (Insecure Direct Object Reference). Luôn kiểm tra quyền truy cập ở tầng máy chủ đối với mỗi hành động nhạy cảm.',
     excerpt:
       'Khái niệm nền tảng trong an toàn thông tin web và những sai lầm phổ biến khi triển khai.',
-    authorUsername: 'admin',
+    authorUsername: 'quantri',
     readingTimeMin: 6,
     tagSlugs: ['security'],
     createdAt: '2026-11-01 10:15:00',
@@ -207,7 +207,7 @@ export const posts: SeedPost[] = [
       'Quản lý phiên làm việc bằng cookie đòi hỏi các cờ bảo vệ bắt buộc: HttpOnly để ngăn chặn đánh cắp qua XSS, Secure để chỉ truyền qua HTTPS, và SameSite=Lax hoặc Strict để phòng vệ CSRF.\n\nHiểu rõ cách trình duyệt xử lý cookie giữa các origin khác nhau giúp lập trình viên tránh được những rủi ro bảo mật nghiêm trọng.',
     excerpt:
       'Tác dụng của các cờ HttpOnly, Secure và SameSite trong việc ngăn chặn đánh cắp cookie và CSRF.',
-    authorUsername: 'admin',
+    authorUsername: 'quantri',
     readingTimeMin: 7,
     tagSlugs: ['security'],
     createdAt: '2026-11-02 08:30:00',

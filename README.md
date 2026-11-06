@@ -1,4 +1,4 @@
-# Campus Devs — Web Attacks & Countermeasures Demo Blog
+# Trạm Dev — Web Attacks & Countermeasures Demo Blog
 
 [![Verification Pipeline](https://img.shields.io/badge/checks-zero%20warnings-brightgreen)]()
 [![Node.js](https://img.shields.io/badge/node-v22%20LTS-blue)]()
@@ -33,11 +33,11 @@ The site is styled to look and feel like an authentic Vietnamese student develop
 
 Running `npm run seed` populates both databases with 3 seed users and 9 realistic Vietnamese student developer blog posts:
 
-| Username  | Password   | Role                  | Email                    |
-| :-------- | :--------- | :-------------------- | :----------------------- |
-| **admin** | `admin123` | Quản trị viên (Admin) | `admin@campusblog.local` |
-| **alice** | `alice123` | Thành viên (Member)   | `alice@campusblog.local` |
-| **bob**   | `bob123`   | Thành viên (Member)   | `bob@campusblog.local`   |
+| Username    | Password     | Role          | Email                   |
+| :---------- | :----------- | :------------ | :---------------------- |
+| **quantri** | `quantri123` | Quản trị viên | `quantri@tramdev.local` |
+| **minhanh** | `minhanh123` | Thành viên    | `minhanh@tramdev.local` |
+| **quocbao** | `quocbao123` | Thành viên    | `quocbao@tramdev.local` |
 
 ---
 
@@ -113,7 +113,7 @@ Attacker pages run at: `http://localhost:4000`
 Detailed step-by-step instructions and payloads for live classroom walkthroughs are documented in [docs/ATTACKS.md](docs/ATTACKS.md):
 
 1. **SQL Injection (SQLi):**
-   - Auth Bypass: `admin' --` in `POST /login`
+   - Auth Bypass: `quantri' --` in `POST /login`
    - Search Expansion: `' OR '1'='1` in `/search`
 2. **Cross-Site Scripting (XSS):**
    - Reflected: `<script>alert(document.cookie)</script>` in search bar

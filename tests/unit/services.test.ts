@@ -13,16 +13,16 @@ describe('Feature Services & Side-by-Side Branching', () => {
 
   it('AuthService: SQL injection bypass works in vulnerable mode and fails in secure mode', () => {
     const vulnAuth = new AuthService('vulnerable');
-    const vulnUser = vulnAuth.login("admin' --", 'anypassword');
+    const vulnUser = vulnAuth.login("quantri' --", 'anypassword');
     expect(vulnUser).not.toBeNull();
-    expect(vulnUser?.username).toBe('admin');
+    expect(vulnUser?.username).toBe('quantri');
 
     const secAuth = new AuthService('secure');
-    const secUser = secAuth.login("admin' --", 'anypassword');
+    const secUser = secAuth.login("quantri' --", 'anypassword');
     expect(secUser).toBeNull();
 
-    const validUser = secAuth.login('admin', 'admin123');
-    expect(validUser?.username).toBe('admin');
+    const validUser = secAuth.login('quantri', 'quantri123');
+    expect(validUser?.username).toBe('quantri');
   });
 
   it('AuthService: registration stores plaintext in vulnerable mode and bcrypt hash in secure mode', () => {
