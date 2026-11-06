@@ -17,7 +17,7 @@
       <li><a href="/"><%= i18n.nav.home %></a></li>
       <% if (typeof user !== 'undefined' && user) { %>
         <li>
-          <a class="av" href="/profile" title="<%= i18n.nav.profile %>">
+          <a class="av v<%= user.username.charCodeAt(0) % 4 %>" href="/profile" title="<%= i18n.nav.profile %>">
             <%= user.username.substring(0, 2).toUpperCase() %>
           </a>
         </li>

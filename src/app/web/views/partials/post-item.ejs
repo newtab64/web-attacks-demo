@@ -1,6 +1,6 @@
 <article class="item" data-testid="post-item">
   <div class="who">
-    <span class="av"><%= post.author_name ? post.author_name.substring(0, 2).toUpperCase() : 'CD' %></span>
+    <span class="av v<%= (post.author_name || 'x').charCodeAt(0) % 4 %>"><%= post.author_name ? post.author_name.substring(0, 2).toUpperCase() : 'CD' %></span>
     <strong><%= post.author_name %></strong>
     <span><%= post.formatted_date || post.created_at %></span>
   </div>

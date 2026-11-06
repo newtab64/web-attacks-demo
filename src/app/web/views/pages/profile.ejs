@@ -1,6 +1,6 @@
 <section class="wrap settings" data-testid="profile-section">
   <div class="me">
-    <span class="av lg"><%= user && user.username ? user.username.slice(0, 2).toUpperCase() : 'NA' %></span>
+    <span class="av lg v<%= user && user.username ? user.username.charCodeAt(0) % 4 : 0 %>"><%= user && user.username ? user.username.slice(0, 2).toUpperCase() : 'NA' %></span>
     <strong><%= user ? user.username : '' %></strong>
     <span class="badge"><%= user && user.role === 'admin' ? i18n.profile.adminBadge : i18n.profile.roleBadge %></span>
   </div>

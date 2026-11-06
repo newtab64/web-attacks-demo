@@ -1,5 +1,5 @@
 <div class="comment" id="comment-<%= comment.id %>" data-testid="comment-item">
-  <span class="av b"><%= comment.author_name ? comment.author_name.substring(0, 2).toUpperCase() : 'ND' %></span>
+  <span class="av v<%= (comment.author_name || 'x').charCodeAt(0) % 4 %>"><%= comment.author_name ? comment.author_name.substring(0, 2).toUpperCase() : 'ND' %></span>
   <div>
     <div class="head">
       <strong><%= comment.author_name %></strong>

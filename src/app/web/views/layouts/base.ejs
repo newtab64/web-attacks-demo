@@ -18,8 +18,8 @@
   <%- include('footer') %>
 
   <% if (typeof showModeBadge !== 'undefined' && showModeBadge) { %>
-    <aside class="mode-badge <%= isSecure ? 'secure' : 'vulnerable' %>" aria-label="Security Mode">
-      <%= isSecure ? 'Secure' : 'Vulnerable' %>
+    <aside class="mode-badge <%= isSecure ? 'secure' : 'vulnerable' %>" aria-label="<%= i18n.modeBadge.label %>">
+      <%= isSecure ? i18n.modeBadge.secure : i18n.modeBadge.vulnerable %>
     </aside>
   <% } %>
 </body>
