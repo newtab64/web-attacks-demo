@@ -1,149 +1,57 @@
-# Trạm Dev — Web Attacks & Countermeasures Demo Blog
+# Trạm Dev: Web Attacks & Countermeasures Demo
 
-[![Verification Pipeline](https://img.shields.io/badge/checks-zero%20warnings-brightgreen)]()
-[![Node.js](https://img.shields.io/badge/node-v22%20LTS-blue)]()
-[![TypeScript](https://img.shields.io/badge/typescript-strict%20ESM-blue)]()
-[![Tailwind CSS](https://img.shields.io/badge/tailwindcss-v4%20CLI-38bdf8)]()
-[![License](https://img.shields.io/badge/license-MIT-green)]()
+**Topic 3 · Web Programming & Applications (503073)**
 
-An educational, production-grade community blog website built for demonstrating **Common Website Attacks and Countermeasures** in university computer science and cybersecurity courses.
+## The story
 
-The site is styled to look and feel like an authentic Vietnamese student developer community blog with **zero visible mentions of "vulnerable" or "attack" in the UI**. All 5 attack vectors and countermeasures from `ATTACKS.md` behave identically in both **Vulnerable Mode** (`SECURITY_MODE=vulnerable`) and **Secure Mode** (`SECURITY_MODE=secure`, default).
+Trạm Dev looks like any student developer blog: posts, comments, search, logins. Nothing on screen hints that anything is wrong.
 
----
+Start it in **vulnerable mode** and walk through what an attacker can do to it:
 
-## Tech Stack & Layered Architecture
+1. **SQL injection.** Type `quantri' --` as the username and you are logged in as the admin, with no password. Search for `' OR '1'='1` and every post comes back.
+2. **XSS.** Post `<img src=x onerror=alert('Stored')>` as a comment. It runs in every visitor's browser.
+3. **CSRF.** A student opens a "prize giveaway" page on another site, and their email is changed without them touching anything.
+4. **Phishing.** A copy of the login page on `localhost:4000` collects the passwords people type into it.
 
-- **Runtime & Language:** Node.js 22 LTS (`.nvmrc` + `engines`), TypeScript 5.8 ESM with strict type checking (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, zero `any`). 100% TypeScript with zero `.js` files and zero client-side JavaScript.
-- **Layered Codebase Layout:**
-  - `src/app/web/`: Server-rendered HTML controllers, EJS templates (`views/`), session CSRF verification, and UI navigation.
-  - `src/app/api/`: RESTful JSON API under `/api/v1/` for authentication, post feeds, comments, title search, and profile operations.
-  - `src/core/`: Centralized domain services (`AuthService`, `PostsService`, `CommentsService`, `SearchService`, `ProfileService`), database singletons (`better-sqlite3`), security middleware (`session`, `security-headers`, `rate-limit`, `csrf`), and typed Vietnamese i18n dictionary (`src/core/i18n/vi.ts`).
-- **Styling & Design Tokens:** Tailwind CSS v4 compiled via CLI (`styles/input.css` &rarr; `public/css/style.css`). All theme tokens strictly match `design-reference/blog-ui-template.html`. Zero inline `style=""` attributes.
-- **Database Architecture:** Dual SQLite databases managed via `better-sqlite3` in WAL mode:
-  - `data/vulnerable.db`: Stores plaintext passwords for SQLi/auth demonstrations.
-  - `data/secure.db`: Stores bcrypt password hashes (`bcryptjs`).
-- **Validation & Security:** Zod for type-safe environment and request body schemas, Helmet in secure mode with strict Content Security Policy (`default-src 'self'`), session CSRF token verification, and failed-login IP rate limiting.
-- **Localization:** 100% Vietnamese UI (`<html lang="vi">`) with all user-facing strings centralized in `src/core/i18n/vi.ts`. Code, logs, and documentation remain in English.
-- **Automated Verification & CI:** GitHub Actions workflow (`.github/workflows/ci.yml`), Vitest + Supertest testing suite with 67 passing tests across unit, API, and E2E attack vectors. ESLint 10 flat config with `strictTypeChecked` (`--max-warnings 0`), Prettier.
+Now restart in **secure mode** and repeat each step. Same site, same payloads, and every one fails: parameterized queries, escaped output, CSRF tokens, bcrypt hashes, rate limiting and strict security headers.
 
----
+The point is the contrast: the pages look identical, and only the code underneath differs.
 
-## Seed Accounts & Credentials
+Step-by-step payloads and expected results for each attack are in [docs/ATTACKS.md](docs/ATTACKS.md).
 
-Running `npm run seed` populates both databases with 3 seed users and 9 realistic Vietnamese student developer blog posts:
+## Run it
 
-| Username    | Password     | Role          | Email                   |
-| :---------- | :----------- | :------------ | :---------------------- |
-| **quantri** | `quantri123` | Quản trị viên | `quantri@tramdev.local` |
-| **minhanh** | `minhanh123` | Thành viên    | `minhanh@tramdev.local` |
-| **quocbao** | `quocbao123` | Thành viên    | `quocbao@tramdev.local` |
-
----
-
-## Quickstart
-
-### 1. Requirements & Installation
-
-Requires **Node.js 22 LTS**. If you use `nvm`:
-
-```bash
-nvm use
-```
-
-Install pinned production and development dependencies (guaranteed zero vulnerabilities in `npm audit`):
+Requires Node.js 22.
 
 ```bash
 npm install
+npm run seed          # create both databases
+npm start             # secure mode (default) -> http://localhost:3000
 ```
-
-### 2. Seed Databases & Build Application
 
 ```bash
-npm run seed
-npm run build
+SECURITY_MODE=vulnerable npm start   # vulnerable mode
+SHOW_MODE_BADGE=1 npm start          # show a small mode badge in the corner
+npm run attacker                     # attacker server -> http://localhost:4000
 ```
 
-_(Note: `npm start` also automatically runs `npm run build` via `prestart` if you start without building)._
+The attacker server serves the phishing page (`/phishing.html`), the CSRF page (`/csrf.html`), and a dashboard of captured passwords (`/captured`).
 
-### 3. Run the Main Blog Application (Port 3000)
+## Test accounts
 
-- **Secure Mode (Default):**
+| Username  | Password     | Role          |
+| :-------- | :----------- | :------------ |
+| `quantri` | `quantri123` | Administrator |
+| `minhanh` | `minhanh123` | Member        |
+| `quocbao` | `quocbao123` | Member        |
 
-  ```bash
-  npm start
-  # or explicitly:
-  SECURITY_MODE=secure npm start
-  ```
+Vulnerable mode stores these in plaintext (`data/vulnerable.db`). Secure mode stores bcrypt hashes (`data/secure.db`).
 
-  Runs at: `http://localhost:3000`
+## Under the hood
 
-- **Vulnerable Mode:**
-
-  ```bash
-  SECURITY_MODE=vulnerable npm start
-  ```
-
-  Runs at: `http://localhost:3000`
-
-- **Show Mode Badge (Optional):**
-  ```bash
-  SHOW_MODE_BADGE=1 npm start
-  ```
-  Renders a discrete fixed badge in the bottom-right corner indicating current mode.
-
-### 4. Run the Attacker Server (Port 4000)
-
-Start the standalone attacker server in a separate terminal:
+TypeScript, Express, EJS and SQLite, styled with Tailwind. The UI is in Vietnamese with no client-side JavaScript. The code is split into `src/app/web` (pages), `src/app/api` (JSON API under `/api/v1`) and `src/core` (services, database, security middleware).
 
 ```bash
-npm run attacker
+npm run check         # types, lint, formatting and all tests
+npm run screenshots   # regenerate docs/screenshots
 ```
-
-Attacker pages run at: `http://localhost:4000`
-
-- **Phishing Demo:** `http://localhost:4000/phishing.html` (submits to `/capture`)
-- **Captured Passwords Dashboard:** `http://localhost:4000/captured`
-- **CSRF Auto-Submit Demo:** `http://localhost:4000/csrf.html` (targets `POST http://localhost:3000/profile/email`)
-
----
-
-## Classroom Lecture Demonstration
-
-Detailed step-by-step instructions and payloads for live classroom walkthroughs are documented in [docs/ATTACKS.md](docs/ATTACKS.md):
-
-1. **SQL Injection (SQLi):**
-   - Auth Bypass: `quantri' --` in `POST /login`
-   - Search Expansion: `' OR '1'='1` in `/search`
-2. **Cross-Site Scripting (XSS):**
-   - Reflected: `<script>alert(document.cookie)</script>` in search bar
-   - Stored: `<img src=x onerror=alert('Stored')>` in post comments
-3. **Cross-Site Request Forgery (CSRF):**
-   - Auto-submitting prize giveaway on `:4000/csrf.html` updating email without consent
-4. **Broken Authentication & Session Management:**
-   - Plaintext passwords vs bcrypt hashes in SQLite
-   - Missing `HttpOnly` / `SameSite` cookie flags vs strict flags
-   - Brute force protection (HTTP 429 after 5 failed attempts)
-5. **Phishing & Credential Interception:**
-   - Deceptive Vietnamese login page harvesting credentials to `/captured`
-6. **Missing Security Headers:**
-   - CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`
-
----
-
-## Quality & Verification Pipeline
-
-Run the zero-warnings verification contract:
-
-```bash
-# Run all linter, typecheck, format, and unit + E2E test checks
-npm run check
-
-# Run tests only
-npm test
-
-# Capture high-resolution headless Chromium screenshots of all views
-npm run screenshot
-```
-
-All 13 visual views are saved to `docs/screenshots/` (`01-home-light.png` through `13-attacker-captured.png`).
