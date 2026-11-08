@@ -10,6 +10,8 @@ export default tseslint.config(
       'node_modules/**',
       'eslint.config.ts',
       'vitest.config.ts',
+      // Local-only scripted demo recording — not part of the TS project, not pushed.
+      'scripts/demo/**',
     ],
   },
   ...tseslint.configs.strictTypeChecked,

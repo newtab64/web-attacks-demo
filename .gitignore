@@ -7,3 +7,42 @@ data/
 .superpowers/
 docs/superpowers/
 *.tsbuildinfo
+
+# Local-only: scripted demo recording (video, recorder, narration)
+scripts/demo/
+
+# Local-only: design mockup reference, not used by the running app
+design-reference/
+
+# Local-only: regenerate with `npm run screenshots`, don't commit the images
+docs/screenshots/
+
+# Course brief / assignment material, not project source
+503073-Midterm.pdf
+*.pdf
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and local scratch files
+*.log
+npm-debug.log*
+.env
+.env.local
+*.local
+
+# Archives / backups that sometimes get dropped into a repo by mistake
+*.zip
+*.tar
+*.tar.gz
+*.bak
+*.orig
